@@ -17,6 +17,10 @@
           <div>{{ note.content }}</div>
           <div style="color:#666;font-size:.9rem">
             {{ note.created_at|date:"M d, Y H:i" }}
+            <a href="{% url 'transfer_note' note.id %}" 
+               style="color: #007bff; text-decoration: none; margin-left: 10px;">
+               📤 Transfer
+            </a>
           </div>
         </li>
       {% endfor %}

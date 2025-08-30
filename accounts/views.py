@@ -3,10 +3,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from .forms import NoteForm
+from django.contrib.auth.models import User
+from .forms import NoteForm, TransferNoteForm
 from .models import Note
 
 class SignUpView(SuccessMessageMixin, CreateView):
@@ -37,3 +38,22 @@ def notes(request):
 
     user_notes = request.user.notes.all()
     return render(request, "accounts/notes.html", {"form": form, "notes": user_notes})
+
+@login_required
+def transfer_note(request, note_id):
+    note = get_object_or_404(Note, id=note_id)
+    
+    if request.method == 'POST':
+        form = TransferNoteForm(request.POST)
+        if form.is_valid():
+            note.user = form.cleaned_data['recipient']
+            note.save()
+            messages.success(request, f"Note transferred to {note.user.username}")
+            return redirect('notes')
+    else:
+        form = TransferNoteForm()
+    
+    return render(request, 'accounts/transfer_note.html', {
+        'form': form, 
+        'note': note
+    })

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Note
+from django.contrib.auth.models import User
 
 class NoteForm(forms.ModelForm):
     class Meta:
@@ -17,3 +18,10 @@ class NoteForm(forms.ModelForm):
         if not value:
             raise forms.ValidationError("Note cannot be empty.")
         return value
+
+class TransferNoteForm(forms.Form):
+    recipient = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        empty_label="Select user to transfer to...",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
