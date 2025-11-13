@@ -11,7 +11,9 @@
     </div>
     
     <form method="post">
-        {% csrf_token %}
+        <!-- CSRF VULNERABILITY: Missing {% csrf_token %} allows cross-site attacks -->
+        <!-- FIX: Uncomment the line below to enable CSRF protection -->
+        <!-- {% csrf_token %} -->
         <div style="margin: 10px 0;">
             <label>Transfer to:</label><br>
             {{ form.recipient }}

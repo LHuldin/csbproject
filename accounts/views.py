@@ -7,8 +7,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 from .forms import NoteForm, TransferNoteForm
 from .models import Note
+from django.views.decorators.csrf import csrf_exempt
+
+def logout_view(request):
+    logout(request)
+    return redirect('/accounts/login/')
 
 class SignUpView(SuccessMessageMixin, CreateView):
     form_class = UserCreationForm
@@ -39,9 +45,18 @@ def notes(request):
     user_notes = request.user.notes.all()
     return render(request, "accounts/notes.html", {"form": form, "notes": user_notes})
 
+# CSRF VULNERABILITY: @csrf_exempt disables CSRF protection
+# FIX: Remove @csrf_exempt decorator below
+@csrf_exempt
 @login_required
 def transfer_note(request, note_id):
     note = get_object_or_404(Note, id=note_id)
+
+    # A01 VULNERABILITY: No ownership verification - any user can transfer any note
+    # FIX: Add ownership check before allowing transfer:
+    # if note.user != request.user:
+    #     messages.error(request, "You can only transfer your own notes")
+    #     return redirect('notes')
     
     if request.method == 'POST':
         form = TransferNoteForm(request.POST)

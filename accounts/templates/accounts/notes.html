@@ -14,7 +14,11 @@
     <ul>
       {% for note in notes %}
         <li>
-          <div>{{ note.content }}</div>
+          <!-- A03 VULNERABILITY: XSS - |safe filter allows raw HTML execution -->
+          <!-- ORIGINAL SAFE VERSION (commented out): -->
+          <!-- <div>{{ note.content }}</div> -->
+          <!-- FIX: Uncomment the line above and remove |safe filter below -->
+          <div>{{ note.content|safe }}</div>
           <div style="color:#666;font-size:.9rem">
             {{ note.created_at|date:"M d, Y H:i" }}
             <a href="{% url 'transfer_note' note.id %}" 

