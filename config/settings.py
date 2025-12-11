@@ -31,8 +31,7 @@ SECRET_KEY = "django-insecure-ngj(zz-4dmkapo++!oiz&**js9yw31y+avbx!i$x=*7u#vqj*)
 DEBUG = True
 # FIX: Set DEBUG = False for production:
 # DEBUG = False
-# ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
