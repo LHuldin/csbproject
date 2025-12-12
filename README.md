@@ -6,6 +6,10 @@
 
 A simple Django-based notes application where users can create, view, and transfer notes between accounts. This project intentionally contains five common OWASP security vulnerabilities for educational purposes: broken access control, exposed SECRET_KEY, DEBUG mode enabled, XSS via |safe filter, and missing CSRF protection. Each flaw includes commented fixes in the code.
 
+## Screenshots
+
+Screenshots demonstrating each vulnerability are available in the [screenshots](./screenshots) folder.
+
 ### FLAW 1: A01:2021 – Broken Access Control 
 Source: https://github.com/LHuldin/csbproject/blob/main/accounts/views.py#L55
 
