@@ -38,9 +38,9 @@ How to fix: Remove the |safe filter from the template and rely on Django's autom
 
 ### FLAW 5: CSRF (Cross-Site Request Forgery)
 @csrf_exempt:
-https://github.com/LHuldin/csbproject/blob/main/accounts/views.py#L50
+https://github.com/LHuldin/csbproject/blob/main/accounts/views.py#L48
 Missing token:
-https://github.com/LHuldin/csbproject/blob/main/accounts/templates/accounts/transfer_note.html#L16
+https://github.com/LHuldin/csbproject/blob/main/accounts/templates/accounts/transfer_note.html#L14
 
 Description: The CSRF vulnerability allows attackers to send unauthorized requests on behalf of authenticated users. In this application, the transfer_note function is marked with the @csrf_exempt decorator, which bypasses Django's built-in CSRF protection. Additionally, the form template lacks the {% csrf_token %} element, making it vulnerable to cross-site attacks.
 
