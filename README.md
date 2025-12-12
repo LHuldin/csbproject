@@ -21,7 +21,7 @@ Description: The application contains a hard-coded SECRET_KEY directly in the so
 How to fix: Move the SECRET_KEY to environment variables or a separate configuration file that is not committed to version control. Use os.environ.get('SECRET_KEY') to read the key from environment variables. In production, generate a strong, unique secret key and store it securely. For development, consider using python-decouple library to manage configuration. Add the .env file to .gitignore to prevent accidental commits. This ensures that sensitive cryptographic material remains secret and different environments can use different keys without code changes.
 
 ### FLAW 3: A05:2021 – Security Misconfiguration 
-Source: https://github.com/LHuldin/csbproject/blob/main/config/settings.py#L31
+Source: https://github.com/LHuldin/csbproject/blob/main/config/settings.py#L30
 
 Description: The Django application has DEBUG mode enabled in production configuration. When DEBUG=True, Django provides detailed error pages that expose sensitive information including stack traces, local variables, SQL queries, file paths, and system configuration details. This verbose error reporting is intended only for development purposes. In production, these detailed error messages can reveal critical information about the application's internal structure, database schema, file system layout, and installed packages to potential attackers. This information disclosure can significantly aid attackers in understanding the system architecture and identifying additional vulnerabilities to exploit.
 
