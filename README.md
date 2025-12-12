@@ -14,7 +14,7 @@ Description: The application contains a critical access control vulnerability in
 How to fix: Implement proper ownership verification by adding if note.user != request.user: return HttpResponseForbidden() before allowing any transfer operations. Modify the template to only display transfer buttons for notes owned by the current user using {% if note.user == user %}. Additionally, implement proper authorization checks in the form by filtering the recipient queryset to exclude inappropriate users, add confirmation dialogs for transfers, and implement audit logging to track all transfer operations for security monitoring purposes.
 
 ### FLAW 2: A02:2021 – Cryptographic Failures 
-Source: https://github.com/LHuldin/csbproject/blob/main/config/settings.py#L25
+Source: https://github.com/LHuldin/csbproject/blob/main/config/settings.py#L24
 
 Description: The application contains a hard-coded SECRET_KEY directly in the source code. Django's SECRET_KEY is a cryptographic key used for digital signatures, session security, password reset tokens, and CSRF protection. Having this key exposed in the source code creates multiple security risks. Since the code is stored in a public repository, the secret key becomes accessible to anyone, compromising the cryptographic security of the entire application. An attacker with access to this key could forge session cookies, bypass CSRF protection, generate valid password reset tokens for any user, and potentially gain unauthorized access to user accounts.
 
